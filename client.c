@@ -6,7 +6,7 @@
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:39:43 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/02 23:39:44 by kurosawaits      ###   ########.fr       */
+/*   Updated: 2023/04/03 01:29:27 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	forwarding(int p_id, char *string)
 		while (j < 8)
 		{
 			if (chara % 2 == 0)
-				error_check = kill(p_id, SIGUSR1);
+				error_check = kill((pid_t)p_id, SIGUSR1);
 			else
-				error_check = kill(p_id, SIGUSR2);
+				error_check = kill((pid_t)p_id, SIGUSR2);
 			if (error_check == -1)
 				error_stop();
 			chara /= 2;
