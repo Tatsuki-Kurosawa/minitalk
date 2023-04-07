@@ -6,92 +6,77 @@
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:39:48 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/03 01:30:34 by kurosawaits      ###   ########.fr       */
+/*   Updated: 2023/04/08 02:25:25 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-int	value;
+volatile sig_atomic_t	g_num;
 
-int	change_radix(int *binary)
+char	output(char *byte)
 {
-	int	i;
-	int	sum;
+	int		i;
+	char	sum;
 
 	i = 0;
 	sum = 0;
 	while (i < 8)
 	{
-		sum = sum * 2 + binary[i];
+		sum = sum * 2 + (byte[i] - '0');
 		i++;
 	}
 	return (sum);
 }
 
-void	output(void)
+void	acceptance(void)
 {
-	int	count;
-	int	num;
-	int	*binary;
+	int		i;
+	char	*byte;
+	char	chara;
 
-	count = 7;
+	g_num = 0;
+	i = 0;
+	byte = (char *)malloc(sizeof(char) * (8 + 1));
+	if (!byte)
+		exit(1);
 	while (1)
 	{
 		pause();
-		printf("動いたよ");
-		if (count == 7)
+		byte[7 - i] = g_num;
+		i++;
+		if (i == 8)
 		{
-			binary = (int *)malloc(sizeof(int) * 8);
-			if (!binary)
-			{
-				write(2, "malloc_error", ft_strlen("malloc_error"));
-				exit(1);
-			}
+			byte[8] = '\0';
+			i = 0;
+			chara = output(byte);
+			write(1, &chara, 1);
 		}
-		binary[count] = value;
-		if (count == 0)
-		{
-			num = change_radix(binary);
-			write(1, &num, 1);
-			count = 7;
-			free(binary);
-		}
-		else
-			count--;
 	}
+	free(byte);
 }
 
-void	set_bit(int signum)
+void	tell(int signum)
 {
 	if (signum == SIGUSR1)
-		value = 0;
+		g_num = '0';
 	else if (signum == SIGUSR2)
-		value = 1;
-}
-
-void	acceptance(void)
-{
-	struct sigaction	sa;
-	int					count;
-	int					*binary;
-
-	count = 0;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_handler = set_bit;
-	sa.sa_flags = 0;
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	output();
+		g_num = '1';
 }
 
 int	main(void)
 {
-	pid_t	p_id;
+	pid_t				pid;
+	struct sigaction	sa;
 
-	p_id = getpid();
-	ft_putnbr_fd((int)p_id, 0);
-	write(1, "\n", ft_strlen("\n"));
+	pid = getpid();
+	ft_putnbr_fd(pid, 1);
+	write(1, "\n", 1);
+	sigemptyset(&sa.sa_mask);
+	sa.sa_handler = tell;
+	sa.sa_flags = 0;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	acceptance();
-	return (0);
+	exit(0);
 }

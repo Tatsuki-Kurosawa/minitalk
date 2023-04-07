@@ -6,7 +6,7 @@
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:39:43 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/03 01:29:27 by kurosawaits      ###   ########.fr       */
+/*   Updated: 2023/04/08 02:30:20 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,49 +18,60 @@ void	error_stop(void)
 	exit(1);
 }
 
-void	forwarding(int p_id, char *string)
+void	output(pid_t pid, char chara)
 {
 	int		i;
-	int		j;
-	int		error_check;
-	char	chara;
+	int		mod;
+	int		check;
 
 	i = 0;
-	j = 0;
-	while (i < ft_strlen(string))
+	while (i < 8)
 	{
-		chara = *(string + i);
-		while (j < 8)
-		{
-			if (chara % 2 == 0)
-				error_check = kill((pid_t)p_id, SIGUSR1);
-			else
-				error_check = kill((pid_t)p_id, SIGUSR2);
-			if (error_check == -1)
-				error_stop();
-			chara /= 2;
-			j++;
-		}
-		j = 0;
+		mod = chara % 2;
+		if (mod == 0)
+			check = kill(pid, SIGUSR1);
+		else
+			check = kill(pid, SIGUSR2);
+		usleep(3000);
+		if (check == -1)
+			error_stop();
+		chara /= 2;
+		i++;
+	}
+}
+
+void	setchar(pid_t pid, char *str)
+{
+	size_t	len;
+	size_t	i;
+	char	chara;
+
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len)
+	{
+		chara = str[i];
+		output(pid, chara);
 		i++;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int	p_id;
+	int		check;
+	pid_t	pid;
 
-	p_id = ft_atoi(argv[1]);
+	pid = (pid_t)ft_atoi(argv[1]);
 	if (argc != 3 || argc == 0)
 	{
 		write(2, "error\n", ft_strlen("error\n"));
 		exit(1);
 	}
-	if (p_id <= 0 || p_id > 4194304 || kill(p_id, 0))
+	if (pid <= 0 || pid > 4194304 || kill(pid, 0))
 	{
 		write(2, "PID error\n", ft_strlen("PID error\n"));
 		exit(1);
 	}
-	forwarding((int)p_id, argv[2]);
-	return (0);
+	setchar(pid, argv[2]);
+	exit(0);
 }
