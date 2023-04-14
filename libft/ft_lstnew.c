@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/11/02 16:41:17 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/11/29 23:01:25 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+t_list	*ft_lstnew(void *content)
+{
+	t_list	*ptr;
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-
-#endif
+	ptr = (t_list *)malloc(sizeof(t_list));
+	if (!ptr)
+		return (NULL);
+	ptr->content = content;
+	ptr->next = NULL;
+	return (ptr);
+}

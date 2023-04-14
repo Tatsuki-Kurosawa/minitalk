@@ -1,64 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft_1.c                                          :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 23:17:30 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/07 23:17:31 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/10/16 06:42:11 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/04 21:59:40 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "libft.h"
 
-static void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, sizeof(c));
-}
-
-void	ft_putnbr_fd(int n, int fd)
-{
-	char	chara;
-
-	if (n >= 0)
-		n *= -1;
-	else
-		ft_putchar_fd('-', fd);
-	if (-9 <= n && n <= 0)
-	{
-		chara = (n % 10) * (-1) + '0';
-		ft_putchar_fd(chara, fd);
-		return ;
-	}
-	chara = (n % 10) * (-1) + '0';
-	ft_putnbr_fd(n / 10 * (-1), fd);
-	ft_putchar_fd(chara, fd);
-	return ;
-}
-
-int	ft_isdigit(int c)
-{
-	return ('0' <= c && c <= '9');
-}
-
-static int	check_overflow(int sign, unsigned long sum, char c)
-{
-	unsigned long	tmp;
-
-	tmp = LONG_MAX / 10;
-	if (sign == 1)
-	{
-		if (tmp < sum || (sum == tmp && LONG_MAX % 10 < c - '0'))
-			return (1);
-	}
-	else if (sign == -1)
-	{
-		if (tmp < sum || (sum == tmp && (LONG_MIN % 10) * (-1) < c - '0'))
-			return (1);
-	}
-	return (0);
-}
+static int	check_overflow(int a, unsigned long b, char c);
 
 int	ft_atoi(const char *str)
 {
@@ -88,3 +42,32 @@ int	ft_atoi(const char *str)
 	}
 	return (sum * sign);
 }
+
+static int	check_overflow(int sign, unsigned long sum, char c)
+{
+	unsigned long	tmp;
+
+	tmp = LONG_MAX / 10;
+	if (sign == 1)
+	{
+		if (tmp < sum || (sum == tmp && LONG_MAX % 10 < c - '0'))
+			return (1);
+	}
+	else if (sign == -1)
+	{
+		if (tmp < sum || (sum == tmp && (LONG_MIN % 10) * (-1) < c - '0'))
+			return (1);
+	}
+	return (0);
+}
+
+// int	main(void) {
+//     int n;
+// 	int	m;
+// 	m = atoi("   +2147483647");
+// 	n = ft_atoi("   +2147483647");
+//     printf("atoi: %d\n", m);
+//     printf("ft_atoi: %d\n", n);
+//     return 0;
+// }
+// gcc -Wall -Wextra -Werror ft_atoi.c ft_isdigit.c

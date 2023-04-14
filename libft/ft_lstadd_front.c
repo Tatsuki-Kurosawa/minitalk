@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
+/*   By: tkurosaw <tkurosaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/11/02 16:41:19 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/10 21:33:58 by tkurosaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+void	ft_lstadd_front(t_list **lst, t_list *new)
+{
+	t_list	*next_data;
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-
-#endif
+	if (!lst || !new)
+		return ;
+	next_data = *lst;
+	*lst = new;
+	new->next = next_data;
+}

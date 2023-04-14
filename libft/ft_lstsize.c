@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/11/02 17:31:03 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/04 21:51:55 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+int	ft_lstsize(t_list *lst)
+{
+	int	count;
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-
-#endif
+	count = 0;
+	if (!lst)
+		return (count);
+	count++;
+	while (lst->next)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}

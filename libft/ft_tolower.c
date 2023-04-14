@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/10/12 19:46:29 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/04 21:54:49 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+int	ft_tolower(int c)
+{
+	if ('A' <= c && c <= 'Z')
+		c += ('a' - 'A');
+	return (c);
+}
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
+// int	main(void)
+// {
+// 	int	i;
 
-#endif
+// 	i = 64;
+// 	while (i <= 91)
+// 	{
+// 		printf("tolower: %c, ft_tolower: %c\n", tolower(i), ft_tolower(i));
+// 		i++;
+// 	}
+// 	return (0);
+// }
+// gcc -Wall -Wextra -Werror ft_tolower.c

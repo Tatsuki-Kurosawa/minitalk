@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
+/*   By: tkurosaw <tkurosaw@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/11/06 20:03:53 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/11/25 21:27:08 by tkurosaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, sizeof(c));
+}
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-
-#endif
+// int	main(void)
+// {
+// 	ft_putchar_fd(50, 1);
+// 	return (0);
+// }
+// gcc -Wall -Wextra -Werror ft_putchar_fd.c

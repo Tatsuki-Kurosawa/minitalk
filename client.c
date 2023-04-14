@@ -6,7 +6,7 @@
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:39:43 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/08 02:30:20 by kurosawaits      ###   ########.fr       */
+/*   Updated: 2023/04/14 23:05:50 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	output(pid_t pid, char chara)
 			check = kill(pid, SIGUSR1);
 		else
 			check = kill(pid, SIGUSR2);
-		usleep(3000);
+		usleep(900);
 		if (check == -1)
 			error_stop();
 		chara /= 2;
@@ -58,7 +58,6 @@ void	setchar(pid_t pid, char *str)
 
 int	main(int argc, char **argv)
 {
-	int		check;
 	pid_t	pid;
 
 	pid = (pid_t)ft_atoi(argv[1]);

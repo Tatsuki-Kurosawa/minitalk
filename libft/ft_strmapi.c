@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/11/06 20:21:42 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/04 22:55:16 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char	*return_value;
+	size_t	i;
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
-
-#endif
+	if (!s || !f)
+		return (NULL);
+	return_value = (char *)malloc(sizeof(char) * (ft_strlen(s) + 1));
+	if (!return_value)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		return_value[i] = f(i, s[i]);
+		i++;
+	}
+	return_value[i] = '\0';
+	return (return_value);
+}

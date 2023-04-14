@@ -6,7 +6,7 @@
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 23:39:48 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/08 02:25:25 by kurosawaits      ###   ########.fr       */
+/*   Updated: 2023/04/08 18:14:01 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	acceptance(void)
 	while (1)
 	{
 		pause();
+		if (g_num == '2')
+			continue ;
 		byte[7 - i] = g_num;
 		i++;
 		if (i == 8)
@@ -62,6 +64,8 @@ void	tell(int signum)
 		g_num = '0';
 	else if (signum == SIGUSR2)
 		g_num = '1';
+	else
+		g_num = '2';
 }
 
 int	main(void)

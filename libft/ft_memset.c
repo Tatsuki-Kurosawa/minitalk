@@ -1,25 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kurosawaitsuki <kurosawaitsuki@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:14:21 by kurosawaits       #+#    #+#             */
-/*   Updated: 2023/04/14 23:03:47 by kurosawaits      ###   ########.fr       */
+/*   Created: 2022/10/11 19:28:19 by kurosawaits       #+#    #+#             */
+/*   Updated: 2022/12/02 19:25:48 by kurosawaits      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <limits.h>
-# include <libc.h>
+void	*ft_memset(void *s, int c, size_t len)
+{
+	unsigned char	*str;
 
-void	ft_putnbr_fd(int n, int fd);
-size_t	ft_strlen(const char *s);
-int		ft_atoi(const char *str);
+	str = (unsigned char *)s;
+	while (len--)
+	{
+		*str = (unsigned char)c;
+		str++;
+	}
+	return (s);
+}
 
-#endif
+// int main(void)
+// {
+//     char buf[] = "ABCDEFGHIJK";
+//     memset(buf, '1', 5);
+//     // ft_memset(buf, '1', 5);
+//     printf("%s\n",buf);
+//     return (0);
+// }
+// gcc -Wall -Wextra -Werror ft_memset.c
